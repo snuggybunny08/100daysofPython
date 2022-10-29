@@ -1,0 +1,88 @@
+import random
+from number_art import logo
+
+print(logo)
+print('Welcome to our number guessing game. \nHope you have a wonderful experience.')
+
+print('I am thinking of a number between 1 and 100.')
+
+game_level = input("What level would you lovve to play? Type 'e' for easy, 'm' for medium, and 'h' for hard ")
+game_life = 0
+
+number = 0
+def game ():
+    global number
+    number = random.randint(0,100)
+    return number
+
+def guess():
+    ''' set the amount of game lives left for the game by the level chosen '''
+    # game_life = 0 
+    global game_life
+    if game_level == 'e':
+        game_life += 10
+        print (f'You have {game_life} attempts remaining to guess the correct number')
+    elif game_level == 'm':
+        game_life += 7 
+        print (f'You have {game_life} attempts remaining to guess the correct number')
+    elif game_level == 'h':
+        game_life += 5
+        print (f'You have {game_life} attempts remaining to guess the correct number')
+    else:
+        print('You selected an invalid level, Try again')
+    return game_life
+        
+       
+# if game_level == 'e':
+#     print (f'You have {game_life} attempts remaining to guess the correct number')
+# elif game_level == 'm':
+#     print (f'You have {game_life} attempts remaining to guess the correct number')
+# elif game_level == 'h':
+#     (f'You have {game_life} attempts remaining to guess the correct number')
+
+pick_num = 0      
+def pick ():
+    '''to guess the random number chosen by the computer '''
+    global pick_num 
+    # print(f'You have {game_life} attempts remaining to guess the number \nPick your preferred guess.')
+    pick_num1 = input ('Pick a preferred number')
+    pick_num = int(pick_num1)
+    return pick_num   
+
+
+
+def play():
+    '''to play the game '''
+    global game_life
+    # message = ''
+    if pick_num > number:
+        print(pick_num)
+        print('Too high')
+        # message = 'Too high'
+        game_life -= 1
+        print(f'You have {game_life} attempts remaining to guess the number \nPick your preferred guess.')
+    elif pick_num < number:
+        print(pick_num)
+        print ('Too low')
+        # message = 'Too low'
+        game_life -= 1
+        print(f'You have {game_life} attempts remaining to guess the number \nPick your preferred guess.')
+    else:
+        print (f'You got it. The correct number is {number}')
+    # return message
+         
+
+guess()
+game() 
+is_game_on = True
+
+
+while is_game_on:
+    pick()
+    play()
+    if game_life == 0:
+           is_game_on = False
+           print('Its game over')
+           print (f'Sorry😞....The correct number is {number}')
+    elif pick_num == number:
+        is_game_on = False
